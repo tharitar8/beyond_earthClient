@@ -10,7 +10,8 @@ import SignUp from './components/auth/SignUp'
 import SignIn from './components/auth/SignIn'
 import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
-
+import Footer from './components/Footer/Footer'
+import Homepage from './components/Homepage/Homepage'
 class App extends Component {
   constructor (props) {
     super(props)
@@ -44,8 +45,8 @@ class App extends Component {
 
     return (
       <Fragment>
-	      <Header user={user} />
-	      {msgAlerts.map((msgAlert) => (
+        <Header user={user} />
+        {msgAlerts.map((msgAlert) => (
           <AutoDismissAlert
             key={msgAlert.id}
             heading={msgAlert.heading}
@@ -55,8 +56,9 @@ class App extends Component {
             deleteAlert={this.deleteAlert}
           />
         ))}
-	      <main className='container'>
-	        <Route
+        <main className='container'>
+          <Homepage />
+          <Route
             path='/sign-up'
             render={() => (
               <SignUp msgAlert={this.msgAlert} setUser={this.setUser} />
@@ -87,6 +89,8 @@ class App extends Component {
             )}
           />
         </main>
+        <Footer />
+        <p className='text-center py-3'>Copyright &copy; Tharitar Serna</p>
       </Fragment>
     )
   }
