@@ -1,4 +1,5 @@
 /* eslint-disable no-tabs */
+// this page is for a route to each url
 import React, { Component, Fragment } from 'react'
 import { Route } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
@@ -12,6 +13,8 @@ import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
 import Footer from './components/Footer/Footer'
 import Homepage from './components/Homepage/Homepage'
+import ProductPage from './components/Products/ProductPage'
+
 class App extends Component {
   constructor (props) {
     super(props)
@@ -58,6 +61,7 @@ class App extends Component {
         ))}
         <main className='container'>
           <Route path='/' component={Homepage} exact />
+          <Route path='/product/:id' component={ProductPage} />
           <Route
             path='/sign-up'
             render={() => (
