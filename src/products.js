@@ -1,19 +1,19 @@
 const products = [
   {
     _id: '1',
-    name: 'Mars Ticket',
+    name: 'Ticket 1',
     image: 'https://i.imgur.com/6FSlQaR.png',
     description: 'getaway from this earth',
     company: 'spaceX',
     category: 'Mars',
     price: 50000,
     countInStock: 10,
-    rating: 4.5,
+    rating: 5,
     numReviews: 12
   },
   {
     _id: '2',
-    name: 'Moon Ticket',
+    name: 'Ticket 2',
     image: 'https://i.imgur.com/DrTY6E1.png',
     description: 'Fly me to the Moon',
     company: 'Apple',
@@ -25,9 +25,9 @@ const products = [
   },
   {
     _id: '3',
-    name: 'Cannon EOS 80D DSLR Camera',
+    name: 'Ticket 3',
     image: '/images/camera.jpeg',
-    description: 'the Canon EOS 80D further clarifies itself using a pair of ',
+    description: 'the Canon EOS 80D  ',
     company: 'Cannon',
     category: 'Electronics',
     price: 929.99,
@@ -37,12 +37,12 @@ const products = [
   },
   {
     _id: '4',
-    name: 'Sony Playstation 5 Pro White Version',
+    name: 'Starwars',
     image: '/images/playstation.jpg',
     description:
-        'The ultimate home entertainment center starts with PlayStation. Whether you are into gaming, HD movies, television, music',
+        'The ultimate ic',
     company: 'Sony',
-    category: 'Electronics',
+    category: 'Eleics',
     price: 399.99,
     countInStock: 11,
     rating: 5,
@@ -50,10 +50,10 @@ const products = [
   },
   {
     _id: '5',
-    name: 'Logitech G-Series Gaming Mouse',
+    name: 'Ticket5',
     image: '/images/mouse.jpg',
     description:
-        'Get a better handle on your games with this Logitech LIGHTSYNC gaming mouse. The six programmable buttons allow customization for a smooth playing experience',
+        'Get a better handle on your ooth playing experience',
     company: 'Logitech',
     category: 'Electronics',
     price: 49.99,
@@ -63,10 +63,10 @@ const products = [
   },
   {
     _id: '6',
-    name: 'Amazon Echo Dot 3rd Generation',
+    name: 'Ticket6',
     image: '/images/alexa.jpg',
     description:
-        'Meet Echo Dot - Our most popular smart speaker with a fabric design. It is our most compact smart speaker that fits perfectly into small space',
+        'Meet Echo Dot - Our most popular l space',
     company: 'Amazon',
     category: 'Electronics',
     price: 29.99,
