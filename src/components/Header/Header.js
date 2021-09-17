@@ -43,6 +43,7 @@ const Header = ({ user }) => (
         {user ? authenticatedOptions : unauthenticatedOptions}
       </Nav>
     </Navbar.Collapse>
+
     <NavLink exact to='/cart' className='nav-link'>
         Cart
     </NavLink>

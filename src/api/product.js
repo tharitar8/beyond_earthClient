@@ -1,10 +1,16 @@
 import apiUrl from '../apiConfig'
 import axios from 'axios'
 
-export const viewProducts = (data) => {
+export const viewProducts = (user) => {
   return axios({
-    url: apiUrl + '/products/',
+    url: apiUrl + '/products',
+    method: 'GET'
+  })
+}
+
+export const showOneProduct = (id) => {
+  return axios({
     method: 'GET',
-    data: { product: data }
+    url: apiUrl + `/products/${id}`
   })
 }

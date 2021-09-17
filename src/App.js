@@ -61,7 +61,7 @@ class App extends Component {
         ))}
         <main className='container'>
           <Route path='/' component={Homepage} exact />
-          <Route path='/product/:id' component={ProductPage} />
+          <Route path='/products/:id' component={ProductPage} />
           <Route
             path='/sign-up'
             render={() => (
