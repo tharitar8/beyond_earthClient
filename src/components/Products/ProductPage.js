@@ -3,22 +3,23 @@ import { Link } from 'react-router-dom'
 import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap'
 import Rating from '../Products/Rating'
 import { showOneProduct } from '../../api/product'
+import { Container } from 'semantic-ui-react'
 
 class ProductPage extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      post: null,
       loading: false,
-      products: []
+      products: null
     }
   }
 
   componentDidMount () {
-    const { match, user } = this.props
-    showOneProduct(match.params.id, user)
+    const { match } = this.props
+
+    showOneProduct(match.params.id)
       .then((res) => {
-        return this.setState({ products: res.data.product })
+        this.setState({ products: res.data })
       })
       .catch((err) => {
         this.setState({ error: err, loading: false })
@@ -26,15 +27,21 @@ class ProductPage extends Component {
   }
 
   render () {
+    if (this.state.products === null) {
+      return 'loading...'
+    }
+    if (this.products === null) {
+      <h3>No product</h3>
+    }
     const product = this.state.products
     return (
-      <div>
+      <Container>
         <Link to='/' className='btn btn-light may-3'>
-            Back
+              Back
         </Link>
         <Row>
           <Col md={6}>
-s           <Image src={product.image} alt={product.name} fluid />
+            <Image src={product.image} alt={product.name} fluid />
           </Col>
 
           <Col md={3}>
@@ -48,9 +55,7 @@ s           <Image src={product.image} alt={product.name} fluid />
                 text={`${product.numReviews} reviews`}
                 color='gold'></Rating>
             </ListGroup.Item>
-
             <ListGroup.Item>Price: ${product.price}</ListGroup.Item>
-
             <ListGroup.Item>Detail: {product.description}</ListGroup.Item>
           </Col>
 
@@ -60,7 +65,7 @@ s           <Image src={product.image} alt={product.name} fluid />
                 <ListGroup.Item>
                   <Row>
                     <Col>
-                                    Price: <strong>${product.price}</strong>
+                        Price: <strong>${product.price}</strong>
                     </Col>
                   </Row>
                 </ListGroup.Item>
@@ -68,7 +73,7 @@ s           <Image src={product.image} alt={product.name} fluid />
                 <ListGroup.Item>
                   <Row>
                     <Col>
-                                    Status :{' '}
+                        Status :{' '}
                       {product.countInStock > 0 ? 'In stock' : 'Out of Stock'}
                     </Col>
                   </Row>
@@ -85,7 +90,7 @@ s           <Image src={product.image} alt={product.name} fluid />
             </Card>
           </Col>
         </Row>
-      </div>
+      </Container>
     )
   }
 }

@@ -9,7 +9,6 @@ class Product extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      post: null,
       loading: false,
       products: []
     }
@@ -34,7 +33,6 @@ class Product extends Component {
     if (this.products === null) {
       <h3>No product</h3>
     }
-    console.log('this.state.in product form', this.state)
     const productJsx = this.state.products.map((product) => (
       <Container key={product._id}>
         <Card className='my-3 p-3 rounded'>
