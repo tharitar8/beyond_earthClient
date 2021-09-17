@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap'
 import Rating from '../Products/Rating'
 import products from '../../products'
-
+// on each page of product
 function ProductPage ({ match }) {
 // look for id value
   const product = products.find((p) => p._id === match.params.id)

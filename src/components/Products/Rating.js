@@ -1,5 +1,5 @@
 import React from 'react'
-
+// rating to export to product form and product page
 function Rating ({ value, text, color }) {
   return (
     <div className="rating">

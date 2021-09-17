@@ -1,10 +1,11 @@
 import React from 'react'
 import { Col, Row } from 'react-bootstrap'
+import { withRouter } from 'react-router-dom'
 // import product array
 import products from '../../products'
 // Product component
-import Product from '../Products/Product'
-
+import Product from '../Products/ProductForm'
+// homepage loop through all products to show
 function Homepage () {
   return (
     <div>
@@ -21,4 +22,4 @@ function Homepage () {
   )
 }
 
-export default Homepage
+export default withRouter(Homepage)
