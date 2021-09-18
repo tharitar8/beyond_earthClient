@@ -44,7 +44,7 @@ const Header = ({ user }) => (
       </Nav>
     </Navbar.Collapse>
 
-    <NavLink exact to='/cart' className='nav-link'>
+    <NavLink exact to='products/cart' className='nav-link'>
         Cart
     </NavLink>
   </Navbar>

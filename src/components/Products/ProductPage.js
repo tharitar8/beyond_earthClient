@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap'
 import Rating from '../Products/Rating'
-import { showOneProduct } from '../../api/product'
+import { showOneProduct, addToCartPage } from '../../api/product'
 import { Container } from 'semantic-ui-react'
 
 class ProductPage extends Component {
@@ -26,73 +26,96 @@ class ProductPage extends Component {
       })
   }
 
-  render () {
-    if (this.state.products === null) {
-      return 'loading...'
+    onCreateCart = (event) => {
+      // prevent page refresh
+      event.preventDefault()
+      const { msgAlert, user } = this.props
+      // create post API call
+      addToCartPage(this.state, user)
+        .then(() =>
+          msgAlert({
+            heading: 'Item added to your cart',
+            variant: 'success'
+          })
+        )
+        .catch((error) => {
+          this.setState({ title: '', subject: '', content: '', image: '' })
+          msgAlert({
+            heading: 'Failed with error: ' + error.message,
+            variant: 'danger'
+          })
+        })
     }
-    if (this.products === null) {
-      <h3>No product</h3>
-    }
-    const product = this.state.products
-    return (
-      <Container>
-        <Link to='/' className='btn btn-light may-3'>
-              Back
-        </Link>
-        <Row>
-          <Col md={6}>
-            <Image src={product.image} alt={product.name} fluid />
-          </Col>
 
-          <Col md={3}>
-            <ListGroup variant='flush'>
-              <ListGroup.Item>{product.name}</ListGroup.Item>
-            </ListGroup>
+    render () {
+      if (this.state.products === null) {
+        return 'loading...'
+      }
+      if (this.products === null) {
+        ;<h3>No product</h3>
+      }
+      const product = this.state.products
+      return (
+        <Container>
+          <Link to='/' className='btn btn-light may-3'>
+            Back
+          </Link>
+          <Row>
+            <Col md={6}>
+              <Image src={product.image} alt={product.name} fluid />
+            </Col>
 
-            <ListGroup.Item>
-              <Rating
-                value={product.rating}
-                text={`${product.numReviews} reviews`}
-                color='gold'></Rating>
-            </ListGroup.Item>
-            <ListGroup.Item>Price: ${product.price}</ListGroup.Item>
-            <ListGroup.Item>Detail: {product.description}</ListGroup.Item>
-          </Col>
-
-          <Col md={3}>
-            <Card>
+            <Col md={3}>
               <ListGroup variant='flush'>
-                <ListGroup.Item>
-                  <Row>
-                    <Col>
-                        Price: <strong>${product.price}</strong>
-                    </Col>
-                  </Row>
-                </ListGroup.Item>
-
-                <ListGroup.Item>
-                  <Row>
-                    <Col>
-                        Status :{' '}
-                      {product.countInStock > 0 ? 'In stock' : 'Out of Stock'}
-                    </Col>
-                  </Row>
-                </ListGroup.Item>
-
-                <ListGroup.Item>
-                  <Button
-                    className='btn btn-dark'
-                    disabled= {product.countInStock === 0}
-                  >  Add to cart
-                  </Button>
-                </ListGroup.Item>
+                <ListGroup.Item>{product.name}</ListGroup.Item>
               </ListGroup>
-            </Card>
-          </Col>
-        </Row>
-      </Container>
-    )
-  }
+
+              <ListGroup.Item>
+                <Rating
+                  value={product.rating}
+                  text={`${product.numReviews} reviews`}
+                  color='gold'></Rating>
+              </ListGroup.Item>
+              <ListGroup.Item>Price: ${product.price}</ListGroup.Item>
+              <ListGroup.Item>Detail: {product.description}</ListGroup.Item>
+            </Col>
+
+            <Col md={3}>
+              <Card>
+                <ListGroup variant='flush'>
+                  <ListGroup.Item>
+                    <Row>
+                      <Col>
+                        Price: <strong>${product.price}</strong>
+                      </Col>
+                    </Row>
+                  </ListGroup.Item>
+
+                  <ListGroup.Item>
+                    <Row>
+                      <Col>
+                        Status :{' '}
+                        {product.countInStock > 0 ? 'In stock' : 'Out of Stock'}
+                      </Col>
+                    </Row>
+                  </ListGroup.Item>
+
+                  <ListGroup.Item>
+                    <Button
+                      onClick={() => this.onCreateCart(product._id)}
+                      className='btn btn-dark'
+                      disabled={product.countInStock === 0}>
+                      {' '}
+                      Add to cart
+                    </Button>
+                  </ListGroup.Item>
+                </ListGroup>
+              </Card>
+            </Col>
+          </Row>
+        </Container>
+      )
+    }
 }
 
 export default ProductPage

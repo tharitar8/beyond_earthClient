@@ -14,3 +14,10 @@ export const showOneProduct = (id) => {
     url: apiUrl + `/products/${id}`
   })
 }
+
+export const addToCartPage = (id) => {
+  return axios({
+    method: 'POST',
+    url: apiUrl + '/products/cart'
+  })
+}

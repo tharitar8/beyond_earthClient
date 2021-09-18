@@ -14,7 +14,7 @@ import ChangePassword from './components/auth/ChangePassword'
 import Footer from './components/Footer/Footer'
 import Homepage from './components/Homepage/Homepage'
 import ProductPage from './components/Products/ProductPage'
-
+import CartPage from './components/Products/CartPage'
 class App extends Component {
   constructor (props) {
     super(props)
@@ -62,6 +62,16 @@ class App extends Component {
         <main className='container'>
           <Route path='/' component={Homepage} exact />
           <Route path='/products/:id' component={ProductPage} />
+          <AuthenticatedRoute
+            user={user}
+            path='/products/cart'
+            render={() => (
+              <CartPage
+                msgAlert={this.msgAlert}
+                user={user}
+              />
+            )}
+          />
           <Route
             path='/sign-up'
             render={() => (
