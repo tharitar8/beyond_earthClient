@@ -26,24 +26,17 @@ class ProductPage extends Component {
       })
   }
 
-    onCreateCart = (event) => {
-      // prevent page refresh
-      event.preventDefault()
-      const { msgAlert, user } = this.props
+    onCreateCart = () => {
+      // const { msgAlert } = this.props
+      // const { user } = this.props.user
       // create post API call
-      addToCartPage(this.state, user)
-        .then(() =>
-          msgAlert({
-            heading: 'Item added to your cart',
-            variant: 'success'
-          })
-        )
-        .catch((error) => {
-          this.setState({ title: '', subject: '', content: '', image: '' })
-          msgAlert({
-            heading: 'Failed with error: ' + error.message,
-            variant: 'danger'
-          })
+      // console.log('test', user)
+      addToCartPage(this.state.products, this.props.user)
+        .then((res) => {
+          this.setState({ products: res.data })
+        })
+        .catch((err) => {
+          this.setState({ error: err, loading: false })
         })
     }
 

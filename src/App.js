@@ -45,7 +45,7 @@ class App extends Component {
 
   render () {
     const { msgAlerts, user } = this.state
-
+    // console.log(user)
     return (
       <Fragment>
         <Header user={user} />
@@ -61,16 +61,16 @@ class App extends Component {
         ))}
         <main className='container'>
           <Route path='/' component={Homepage} exact />
-          <Route path='/products/:id' component={ProductPage} />
+          <Route
+            user={user}
+            path='/products/:id'
+            render={(props) => <ProductPage {...props} user={user} />}
+          />
+          {/* <Route path='/products/:id' component={ProductPage} /> */}
           <AuthenticatedRoute
             user={user}
-            path='/products/cart'
-            render={() => (
-              <CartPage
-                msgAlert={this.msgAlert}
-                user={user}
-              />
-            )}
+            path='/cart'
+            render={() => <CartPage user={user} />}
           />
           <Route
             path='/sign-up'

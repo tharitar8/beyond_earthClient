@@ -15,9 +15,14 @@ export const showOneProduct = (id) => {
   })
 }
 
-export const addToCartPage = (id) => {
+export const addToCartPage = (product, user) => {
+  console.log('send', product)
   return axios({
     method: 'POST',
-    url: apiUrl + '/products/cart'
+    url: apiUrl + '/products/cart',
+    headers: {
+      Authorization: `Token ${user.token}`
+    },
+    data: { product }
   })
 }
