@@ -23,31 +23,42 @@ const alwaysOptions = (
   </Fragment>
 )
 
-const Header = ({ user }) => (
-  <Navbar bg='dark' variant='dark' expand='md'>
-    <Navbar.Brand>
-      <Link
-        to='/'
-        style={{ color: '#FFF', textDecoration: 'none' }}
-        className='text-center py-3'>
-          Logo
-      </Link>
-    </Navbar.Brand>
-    <Navbar.Toggle aria-controls='basic-navbar-nav' />
-    <Navbar.Collapse id='basic-navbar-nav'>
-      <Nav className='ml-auto'>
-        {user && (
-          <span className='navbar-text mr-2'>Welcome, {user.email}</span>
+const Header = ({ user, order, product }) => {
+  console.log('order from cart link at header', order)
+  return (
+    <Navbar bg='dark' variant='dark' expand='md'>
+      <Navbar.Brand>
+        <Link
+          to='/'
+          style={{ color: '#FFF', textDecoration: 'none' }}
+          className='text-center py-3'>
+            Logo
+        </Link>
+      </Navbar.Brand>
+      <Navbar.Toggle aria-controls='basic-navbar-nav' />
+      <Navbar.Collapse id='basic-navbar-nav'>
+        <Nav className='ml-auto'>
+          {user && (
+            <span className='navbar-text mr-2'>Welcome, {user.email}</span>
+          )}
+          {alwaysOptions}
+          {user ? authenticatedOptions : unauthenticatedOptions}
+        </Nav>
+      </Navbar.Collapse>
+      {order
+        ? (
+          <NavLink
+            exact
+            to={`/cart/${order.id}`}
+            className='nav-link'>
+            Cart
+          </NavLink>
+        )
+        : (
+          ''
         )}
-        {alwaysOptions}
-        {user ? authenticatedOptions : unauthenticatedOptions}
-      </Nav>
-    </Navbar.Collapse>
-
-    <NavLink exact to='products/cart' className='nav-link'>
-        Cart
-    </NavLink>
-  </Navbar>
-)
+    </Navbar>
+  )
+}
 
 export default Header

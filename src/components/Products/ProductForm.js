@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import Rating from './Rating'
 import { viewProducts } from '../../api/product'
-import { Container } from 'semantic-ui-react'
+import { Container, Item } from 'semantic-ui-react'
 
 class Product extends Component {
   constructor (props) {
@@ -15,9 +14,10 @@ class Product extends Component {
   }
 
   componentDidMount () {
+    console.log('what is showing', this.props)
     viewProducts()
       .then((res) => {
-        console.log(res)
+        // console.log(res)
         this.setState({ products: res.data, loading: false })
       })
       .catch((err) => {
@@ -34,27 +34,18 @@ class Product extends Component {
       <h3>No product</h3>
     }
     const productJsx = this.state.products.map((product) => (
-      <Container key={product._id}>
+      <Container key={product.id}>
         <Card className='my-3 p-3 rounded'>
-          <Link to={`/products/${product._id}`}>
-            <Card.Img src={product.image} />
+          <Link to={`/products/${product.id}`}>
+            <Item.Image src={product.image} />
           </Link>
 
           <Card.Body>
-            <Link to={`/products/${product._id}`}>
+            <Link to={`/products/${product.id}`}>
               <Card.Title as='div'>
                 <strong>{product.name}</strong>
               </Card.Title>
             </Link>
-            <Card.Text as='div'>
-              <div className='my-3'>
-                <Rating
-                  value={product.rating}
-                  text={`${product.numReviews} reviews`}
-                  color={'gold'}
-                />
-              </div>
-            </Card.Text>
 
             <Card.Text as='h6'>${product.price}</Card.Text>
           </Card.Body>

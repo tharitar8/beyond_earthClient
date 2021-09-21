@@ -6,7 +6,7 @@ import { signInSuccess, signInFailure } from '../AutoDismissAlert/messages'
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-
+import { createOrder } from '../../api/product'
 class SignIn extends Component {
   constructor (props) {
     super(props)
@@ -25,10 +25,14 @@ handleChange = (event) =>
 onSignIn = (event) => {
   event.preventDefault()
 
-  const { msgAlert, history, setUser } = this.props
+  const { msgAlert, history, setUser, setOrder } = this.props
 
   signIn(this.state)
-    .then((res) => setUser(res.data.user))
+    .then((res) => {
+      setUser(res.data.user)
+      return createOrder(res.data.user)
+    })
+    .then((res) => setOrder(res.data))
     .then(() =>
       msgAlert({
         heading: 'Sign In Success',

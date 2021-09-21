@@ -12,7 +12,8 @@ import SignIn from './components/auth/SignIn'
 import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
 import Footer from './components/Footer/Footer'
-import Homepage from './components/Homepage/Homepage'
+// import Homepage from './components/Homepage/Homepage'
+import ProductForm from './components/Products/ProductForm'
 import ProductPage from './components/Products/ProductPage'
 import CartPage from './components/Products/CartPage'
 class App extends Component {
@@ -20,94 +21,114 @@ class App extends Component {
     super(props)
     this.state = {
       user: null,
+      order: null,
       msgAlerts: []
     }
   }
 
-  setUser = (user) => this.setState({ user })
+    setUser = (user) => this.setState({ user })
+    setOrder = (order) => this.setState({ order })
+    clearOrder = () => this.setState({ order: null })
+    clearUser = () => this.setState({ user: null })
 
-  clearUser = () => this.setState({ user: null })
+    deleteAlert = (id) => {
+      this.setState((state) => {
+        return { msgAlerts: state.msgAlerts.filter((msg) => msg.id !== id) }
+      })
+    }
 
-  deleteAlert = (id) => {
-    this.setState((state) => {
-      return { msgAlerts: state.msgAlerts.filter((msg) => msg.id !== id) }
-    })
-  }
+    msgAlert = ({ heading, message, variant }) => {
+      const id = uuid()
+      this.setState((state) => {
+        return {
+          msgAlerts: [...state.msgAlerts, { heading, message, variant, id }]
+        }
+      })
+    }
 
-  msgAlert = ({ heading, message, variant }) => {
-    const id = uuid()
-    this.setState((state) => {
-      return {
-        msgAlerts: [...state.msgAlerts, { heading, message, variant, id }]
-      }
-    })
-  }
+    render () {
+      const { msgAlerts, user, order } = this.state
+      // console.log(user)
+      return (
+        <Fragment>
+          <Header user={user} order={order} />
+          {msgAlerts.map((msgAlert) => (
+            <AutoDismissAlert
+              key={msgAlert.id}
+              heading={msgAlert.heading}
+              variant={msgAlert.variant}
+              message={msgAlert.message}
+              id={msgAlert.id}
+              deleteAlert={this.deleteAlert}
+            />
+          ))}
+          <main className='container'>
+            <Route path='/' component={ProductForm} exact />
+            <Route
+              user={user}
+              path='/products/:id'
+              render={(props) => (
+                <ProductPage
+                  {...props}
+                  user={user}
+                  order={order}
+                  setOrder={this.setOrder}
+                />
+              )}
+            />
 
-  render () {
-    const { msgAlerts, user } = this.state
-    // console.log(user)
-    return (
-      <Fragment>
-        <Header user={user} />
-        {msgAlerts.map((msgAlert) => (
-          <AutoDismissAlert
-            key={msgAlert.id}
-            heading={msgAlert.heading}
-            variant={msgAlert.variant}
-            message={msgAlert.message}
-            id={msgAlert.id}
-            deleteAlert={this.deleteAlert}
-          />
-        ))}
-        <main className='container'>
-          <Route path='/' component={Homepage} exact />
-          <Route
-            user={user}
-            path='/products/:id'
-            render={(props) => <ProductPage {...props} user={user} />}
-          />
-          {/* <Route path='/products/:id' component={ProductPage} /> */}
-          <AuthenticatedRoute
-            user={user}
-            path='/cart'
-            render={() => <CartPage user={user} />}
-          />
-          <Route
-            path='/sign-up'
-            render={() => (
-              <SignUp msgAlert={this.msgAlert} setUser={this.setUser} />
-            )}
-          />
-          <Route
-            path='/sign-in'
-            render={() => (
-              <SignIn msgAlert={this.msgAlert} setUser={this.setUser} />
-            )}
-          />
-          <AuthenticatedRoute
-            user={user}
-            path='/sign-out'
-            render={() => (
-              <SignOut
-                msgAlert={this.msgAlert}
-                clearUser={this.clearUser}
-                user={user}
-              />
-            )}
-          />
-          <AuthenticatedRoute
-            user={user}
-            path='/change-password'
-            render={() => (
-              <ChangePassword msgAlert={this.msgAlert} user={user} />
-            )}
-          />
-        </main>
-        <Footer />
-        <p className='text-center py-3'>Copyright &copy; Tharitar Serna</p>
-      </Fragment>
-    )
-  }
+            <AuthenticatedRoute
+              user={user}
+              path='/cart/:id'
+              render={() => (
+                <CartPage user={user} order={order} setOrder={this.setOrder} />
+              )}
+            />
+
+            <Route
+              path='/sign-up'
+              render={() => (
+                <SignUp
+                  msgAlert={this.msgAlert}
+                  setUser={this.setUser}
+                  setOrder={this.setOrder}
+                />
+              )}
+            />
+            <Route
+              path='/sign-in'
+              render={() => (
+                <SignIn
+                  msgAlert={this.msgAlert}
+                  setUser={this.setUser}
+                  setOrder={this.setOrder}
+                />
+              )}
+            />
+            <AuthenticatedRoute
+              user={user}
+              path='/sign-out'
+              render={() => (
+                <SignOut
+                  msgAlert={this.msgAlert}
+                  clearUser={this.clearUser}
+                  user={user}
+                />
+              )}
+            />
+            <AuthenticatedRoute
+              user={user}
+              path='/change-password'
+              render={() => (
+                <ChangePassword msgAlert={this.msgAlert} user={user} />
+              )}
+            />
+          </main>
+          <Footer />
+          <p className='text-center py-3'>Copyright &copy; Tharitar Serna</p>
+        </Fragment>
+      )
+    }
 }
 
 export default App
