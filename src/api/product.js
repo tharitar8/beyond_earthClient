@@ -59,13 +59,13 @@ export const deleteOrder = (user) => {
   })
 }
 
-// export const createCart = (user) => {
-//   return axios({
-//     method: 'POST',
-//     url: apiUrl + '/cart/',
-//     headers: {
-//       Authorization: `Token ${user.token}`
-//     },
-//     data: {}
-//   })
-// }
+export const createCart = (user) => {
+  return axios({
+    method: 'POST',
+    url: apiUrl + '/cart/',
+    headers: {
+      Authorization: `Token ${user.token}`
+    },
+    data: {}
+  })
+}
