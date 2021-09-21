@@ -1,6 +1,6 @@
 let apiUrl
 const apiUrls = {
-  production: 'https://beyond-earth.herokuapp.com',
+  production: 'https://earthpluto.herokuapp.com',
   development: 'http://localhost:8000'
 }
 
