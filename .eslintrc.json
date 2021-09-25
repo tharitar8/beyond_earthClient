@@ -14,7 +14,7 @@
     },
     "rules": {
         "prefer-const": "error",
-        "no-var": "error",
+        "no-var": "off",
         "semi": [
             "error",
             "never"

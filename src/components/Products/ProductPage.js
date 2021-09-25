@@ -17,7 +17,6 @@ class ProductPage extends Component {
 
   componentDidMount () {
     const { match } = this.props
-    // console.log('on show onr product', this.props)
     showOneProduct(match.params.id)
       .then((res) => {
         console.log('one product detail', res)
@@ -29,7 +28,7 @@ class ProductPage extends Component {
   }
 
     onAddToCart = (event) => {
-      const { order, user, msgAlert, history } = this.props
+      const { order, user, msgAlert } = this.props
       const { products } = this.state
       console.log('add to cart function', this.props)
       updateOrder(user, order, products)
@@ -40,7 +39,6 @@ class ProductPage extends Component {
             variant: 'success'
           })
         )
-        .then((res) => history.push('/products'))
     }
 
     render () {
