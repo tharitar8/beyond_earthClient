@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { viewProducts } from '../../api/product'
-import { Container, Item } from 'semantic-ui-react'
+import { Container } from 'semantic-ui-react'
 
 class Product extends Component {
   constructor (props) {
@@ -14,7 +14,7 @@ class Product extends Component {
   }
 
   componentDidMount () {
-    console.log('what is showing', this.props)
+    // console.log('Is product id showing on this view products', this.props)
     viewProducts()
       .then((res) => {
         // console.log(res)
@@ -36,12 +36,12 @@ class Product extends Component {
     const productJsx = this.state.products.map((product) => (
       <Container key={product.id}>
         <Card className='my-3 p-3 rounded'>
-          <Link to={`/products/${product.id}`}>
+          {/* <Link to={`/products/${product.id}`}>
             <Item.Image src={product.image} />
-          </Link>
+          </Link> */}
 
           <Card.Body>
-            <Link to={`/products/${product.id}`}>
+            <Link to={`/product/${product.id}`}>
               <Card.Title as='div'>
                 <strong>{product.name}</strong>
               </Card.Title>

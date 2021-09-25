@@ -23,8 +23,8 @@ const alwaysOptions = (
   </Fragment>
 )
 
-const Header = ({ user, order, product }) => {
-  console.log('order from cart link at header', order)
+const Header = ({ user, order }) => {
+  // console.log('order from cart link at header', order)
   return (
     <Navbar bg='dark' variant='dark' expand='md'>
       <Navbar.Brand>
@@ -49,7 +49,7 @@ const Header = ({ user, order, product }) => {
         ? (
           <NavLink
             exact
-            to={`/cart/${order.id}`}
+            to={`/order/${order.id}`}
             className='nav-link'>
             Cart
           </NavLink>

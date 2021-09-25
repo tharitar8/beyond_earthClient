@@ -1,23 +1,26 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap'
-import { showOneProduct, createOrder } from '../../api/product'
+import { showOneProduct, updateOrder } from '../../api/product'
 import { Container } from 'semantic-ui-react'
+import { updateOrderSuccess } from '../AutoDismissAlert/messages'
 
 class ProductPage extends Component {
   constructor (props) {
     super(props)
     this.state = {
       loading: false,
-      products: null
+      products: null,
+      msgAlerts: []
     }
   }
 
   componentDidMount () {
     const { match } = this.props
-
+    // console.log('on show onr product', this.props)
     showOneProduct(match.params.id)
       .then((res) => {
+        console.log('one product detail', res)
         this.setState({ products: res.data })
       })
       .catch((err) => {
@@ -25,15 +28,19 @@ class ProductPage extends Component {
       })
   }
 
-    onCreateCart = (setOrder) => {
-      console.log('this is state products', this.state.products)
-      createOrder(this.props.user, this.state.products)
-        .then((res) => {
-          this.setState({ products: res.data })
-        })
-        .catch((err) => {
-          this.setState({ error: err, loading: false })
-        })
+    onAddToCart = (event) => {
+      const { order, user, msgAlert, history } = this.props
+      const { products } = this.state
+      console.log('add to cart function', this.props)
+      updateOrder(user, order, products)
+        .then(() =>
+          msgAlert({
+            heading: 'Post Updated!',
+            message: updateOrderSuccess,
+            variant: 'success'
+          })
+        )
+        .then((res) => history.push('/products'))
     }
 
     render () {
@@ -74,20 +81,11 @@ class ProductPage extends Component {
                     </Row>
                   </ListGroup.Item>
 
-                  {/* <ListGroup.Item>
-                        <Row>
-                          <Col>
-                            Status :{' '}
-                            {product.countInStock > 0 ? 'In stock' : 'Out of Stock'}
-                          </Col>
-                        </Row>
-                      </ListGroup.Item> */}
-
                   <ListGroup.Item>
                     <Button
-                      onClick={() => this.onCreateCart(product.id)}
+                      onClick={() => this.onAddToCart()}
                       className='btn btn-dark'
-                      disabled={product.countInStock === 0}>
+                    >
                       {' '}
                       Add to cart
                     </Button>

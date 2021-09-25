@@ -29,6 +29,7 @@
         ],
         "react/prop-types": [
             0
-        ]
+        ],
+        "no-debugger": "off"
     }
 }

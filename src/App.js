@@ -3,8 +3,8 @@
 import React, { Component, Fragment } from 'react'
 import { Route } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
-
 import AuthenticatedRoute from './components/AuthenticatedRoute/AuthenticatedRoute'
+import AuthenticatedRouteSignIn from './components/AuthenticatedRoute/AuthenticatedRouteSignIn'
 import AutoDismissAlert from './components/AutoDismissAlert/AutoDismissAlert'
 import Header from './components/Header/Header'
 import SignUp from './components/auth/SignUp'
@@ -13,7 +13,7 @@ import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
 import Footer from './components/Footer/Footer'
 // import Homepage from './components/Homepage/Homepage'
-import ProductForm from './components/Products/ProductForm'
+import HomePageAllProducts from './components/Products/HomePageAllProducts'
 import ProductPage from './components/Products/ProductPage'
 import CartPage from './components/Products/CartPage'
 class App extends Component {
@@ -48,7 +48,6 @@ class App extends Component {
 
     render () {
       const { msgAlerts, user, order } = this.state
-      // console.log(user)
       return (
         <Fragment>
           <Header user={user} order={order} />
@@ -63,23 +62,31 @@ class App extends Component {
             />
           ))}
           <main className='container'>
-            <Route path='/' component={ProductForm} exact />
-            <Route
+            <Route path='/' component={HomePageAllProducts} exact />
+
+            <AuthenticatedRouteSignIn
               user={user}
-              path='/products/:id'
+              path='/product/:id'
               render={(props) => (
                 <ProductPage
                   {...props}
                   user={user}
                   order={order}
+                  msgAlert={this.msgAlert}
                   setOrder={this.setOrder}
                 />
               )}
             />
-
             <AuthenticatedRoute
               user={user}
-              path='/cart/:id'
+              path='/orders/'
+              render={() => (
+                <CartPage user={user} order={order} setOrder={this.setOrder} />
+              )}
+            />
+            <AuthenticatedRouteSignIn
+              user={user}
+              path='/order/:id'
               render={() => (
                 <CartPage user={user} order={order} setOrder={this.setOrder} />
               )}
