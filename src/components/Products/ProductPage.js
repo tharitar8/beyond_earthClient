@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap'
-import { showOneProduct, updateOrder } from '../../api/product'
+import { showOneProduct, addProductToOrder } from '../../api/product'
 import { Container } from 'semantic-ui-react'
 import { updateOrderSuccess } from '../AutoDismissAlert/messages'
 
@@ -31,7 +31,7 @@ class ProductPage extends Component {
       const { order, user, msgAlert } = this.props
       const { products } = this.state
       console.log('add to cart function', this.props)
-      updateOrder(user, order, products)
+      addProductToOrder(user, order, products)
         .then(() =>
           msgAlert({
             heading: 'Post Updated!',

@@ -14,11 +14,12 @@
     },
     "rules": {
         "prefer-const": "error",
-        "no-var": "off",
+        "no-var": "error",
         "semi": [
             "error",
             "never"
         ],
+        "no-unused-vars" :"off",
         "quotes": [
             "error",
             "single"

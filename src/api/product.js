@@ -30,7 +30,7 @@ export const createOrder = (user) => {
 }
 
 // have to make an patch route when add to cart
-export const updateOrder = (user, order, product) => {
+export const addProductToOrder = (user, order, product) => {
   // debugger
   return axios({
     method: 'PATCH',
@@ -74,5 +74,17 @@ export const deleteOrder = (user, order) => {
     headers: {
       Authorization: `Token ${user.token}`
     }
+  })
+}
+
+// update product inside the cart
+export const updateItemInCart = (user, order) => {
+  return axios({
+    url: apiUrl + `/order/${order.id}/`,
+    method: 'PATCH',
+    headers: {
+      Authorization: `Token ${user.token}`
+    },
+    data: { order: order }
   })
 }

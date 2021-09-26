@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { showOneOrder, viewProducts, deleteOrder, createOrder } from '../../api/product'
+import { showOneOrder, viewProducts, deleteOrder, createOrder, updateItemInCart } from '../../api/product'
 import { Card, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { Container } from 'semantic-ui-react'
@@ -10,18 +10,17 @@ class CartPage extends Component {
     this.state = {
       loading: false,
       orderProductList: [],
-      allProducts: {}
+      allProducts: {},
+      orderObject: {}
     }
     this.handleDeleteAll = this.handleDeleteAll.bind(this)
   }
 
   componentDidMount () {
     const { user, order } = this.props
-    // console.log('show', user, order, match)
     showOneOrder(user, order)
       .then((res) => {
-        // console.log(res.data.order.productlist)
-        this.setState({ orderProductList: res.data.order.productlist })
+        this.setState({ orderProductList: res.data.order.productlist, orderObject: res.data.order })
       })
       .catch((err) => {
         this.setState({ error: err, loading: false })
@@ -61,20 +60,44 @@ class CartPage extends Component {
       })
   }
 
+  handleUpdate (productId) {
+    const { user } = this.props
+    const newProductList = this.state.orderProductList.filter(
+      (id) => {
+        return id !== productId
+      }
+    )
+    const newOrderObject = this.state.orderObject
+    newOrderObject.productlist = newProductList
+    updateItemInCart(user, newOrderObject)
+      .then((res) => {
+        this.setState({
+          orderProductList: newProductList,
+          orderObject: newOrderObject
+        })
+      })
+      .catch((err) => {
+        this.setState({ error: err, loading: false })
+      })
+  }
+
   render () {
-    const { allProducts, orderProductList } = this.state
-    if (this.state.products === null) {
+    const { allProducts, orderProductList, loading } = this.state
+
+    if (loading) {
       return 'loading...'
     }
-    // variable to save array.map()
-    if (this.products === null) {
-      <h3>No product</h3>
+    if (orderProductList.length === 0) {
+      return <h3> no product</h3>
     }
 
     const productJsxList = orderProductList.map(productId => {
       const productData = allProducts[productId]
       return (
         <Container key={productData.id}>
+          <Button onClick={() => this.handleUpdate(productId)}>
+             Remove{' '}
+          </Button>
           <Card className='my-3 p-3 rounded'>
             <Card.Body>
               <Link to={`/product/${productData.id}`}>
@@ -89,7 +112,8 @@ class CartPage extends Component {
       )
     })
     return <div>{productJsxList}
-      <Button onClick= {this.handleDeleteAll}>Delete Order</Button>
+      <Button onClick= {this.handleDeleteAll} disabled={orderProductList.length === 0} >Delete Order</Button>
+
     </div>
   }
 }
