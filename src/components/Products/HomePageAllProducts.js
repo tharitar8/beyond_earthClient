@@ -15,10 +15,8 @@ class Product extends Component {
   }
 
   componentDidMount () {
-    // console.log('Is product id showing on this view products', this.props)
     viewProducts()
       .then((res) => {
-        // console.log(res)
         this.setState({ products: res.data, loading: false })
       })
       .catch((err) => {

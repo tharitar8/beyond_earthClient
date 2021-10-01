@@ -26,7 +26,6 @@ const alwaysOptions = (
 )
 
 const Header = ({ user, order }) => {
-  // console.log('order from cart link at header', order)
   return (
     <Navbar className='navbar1' variant='dark' expand='md'>
       <Navbar.Brand>
