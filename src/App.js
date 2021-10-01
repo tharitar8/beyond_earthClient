@@ -16,6 +16,8 @@ import Footer from './components/Footer/Footer'
 import HomePageAllProducts from './components/Products/HomePageAllProducts'
 import ProductPage from './components/Products/ProductPage'
 import CartPage from './components/Products/CartPage'
+import './app.scss'
+
 class App extends Component {
   constructor (props) {
     super(props)
@@ -132,7 +134,6 @@ class App extends Component {
             />
           </main>
           <Footer />
-          <p className='text-center py-3'>Copyright &copy; Tharitar Serna</p>
         </Fragment>
       )
     }

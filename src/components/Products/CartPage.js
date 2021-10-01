@@ -3,6 +3,7 @@ import { showOneOrder, viewProducts, deleteOrder, createOrder, updateItemInCart 
 import { Card, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { Container } from 'semantic-ui-react'
+import { updateCartSuccess } from '../AutoDismissAlert/messages'
 
 class CartPage extends Component {
   constructor (props) {
@@ -11,7 +12,8 @@ class CartPage extends Component {
       loading: false,
       orderProductList: [],
       allProducts: {},
-      orderObject: {}
+      orderObject: {},
+      msgAlerts: []
     }
     this.handleDeleteAll = this.handleDeleteAll.bind(this)
   }
@@ -36,32 +38,39 @@ class CartPage extends Component {
 
   // if not passing in the product it will be an empty array
   normalizeProductsData (products = []) {
-    // 1. define an empty object - done
+    // define an empty object
     const itemObject = {}
-    // 2. iterate over the array (products) done
-    // 3. each item, we want to set the id as key, and value as the item. done
+    // iterate over the array (products)
+    // each item,  want to set the id as key, and value as the item
     products.forEach(product => {
       itemObject[product.id] = product
     })
-    // 4. return object
+    // return object
     return itemObject
   }
 
   handleDeleteAll () {
-    const { user, order, setOrder } = this.props
+    const { user, order, setOrder, msgAlert } = this.props
     deleteOrder(user, order)
       .then((res) => {
         this.setState({ orderProductList: [] })
         return createOrder(user)
       })
       .then((res) => setOrder(res.data))
+      .then(() =>
+        msgAlert({
+          heading: 'Your cart updated!',
+          message: updateCartSuccess,
+          variant: 'success'
+        })
+      )
       .catch((err) => {
         this.setState({ error: err, loading: false })
       })
   }
 
   handleUpdate (productId) {
-    const { user } = this.props
+    const { user, msgAlert } = this.props
     const newProductList = this.state.orderProductList.filter(
       (id) => {
         return id !== productId
@@ -76,6 +85,13 @@ class CartPage extends Component {
           orderObject: newOrderObject
         })
       })
+      .then(() =>
+        msgAlert({
+          heading: 'Your cart updated!',
+          message: updateCartSuccess,
+          variant: 'success'
+        })
+      )
       .catch((err) => {
         this.setState({ error: err, loading: false })
       })
@@ -95,9 +111,6 @@ class CartPage extends Component {
       const productData = allProducts[productId]
       return (
         <Container key={productData.id}>
-          <Button onClick={() => this.handleUpdate(productId)}>
-             Remove{' '}
-          </Button>
           <Card className='my-3 p-3 rounded'>
             <Card.Body>
               <Link to={`/product/${productData.id}`}>
@@ -106,15 +119,25 @@ class CartPage extends Component {
                 </Card.Title>
               </Link>
               <Card.Text as='h6'>${productData.price}</Card.Text>
+              <Button className="btn btn-dark" onClick={() => this.handleUpdate(productId)}>
+                    Remove{' '}
+              </Button>
             </Card.Body>
           </Card>
         </Container>
       )
     })
-    return <div>{productJsxList}
-      <Button onClick= {this.handleDeleteAll} disabled={orderProductList.length === 0} >Delete Order</Button>
-
-    </div>
+    return (
+      <div>
+        {productJsxList}
+        <Button
+          className='btn btn-danger'
+          onClick={this.handleDeleteAll}
+          disabled={orderProductList.length === 0}>
+            Delete Order
+        </Button>
+      </div>
+    )
   }
 }
 

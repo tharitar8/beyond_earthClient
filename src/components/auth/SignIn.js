@@ -7,6 +7,8 @@ import { signInSuccess, signInFailure } from '../AutoDismissAlert/messages'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { createOrder } from '../../api/product'
+
+import './auth.scss'
 class SignIn extends Component {
   constructor (props) {
     super(props)
@@ -17,78 +19,82 @@ class SignIn extends Component {
     }
   }
 
-    handleChange = (event) =>
-      this.setState({
-        [event.target.name]: event.target.value
-      })
-
-    onSignIn = (event) => {
-      event.preventDefault()
-
-      const { msgAlert, history, setUser, setOrder } = this.props
-
-      signIn(this.state)
-        .then((res) => {
-          setUser(res.data.user)
-          return createOrder(res.data.user)
+      handleChange = (event) =>
+        this.setState({
+          [event.target.name]: event.target.value
         })
-        .then((res) => setOrder(res.data))
-        .then(() =>
-          msgAlert({
-            heading: 'Sign In Success',
-            message: signInSuccess,
-            variant: 'success'
-          })
-        )
-        .then(() => history.push('/'))
-        .catch((error) => {
-          this.setState({ email: '', password: '' })
-          msgAlert({
-            heading: 'Sign In Failed with error: ' + error.message,
-            message: signInFailure,
-            variant: 'danger'
-          })
-        })
-    }
 
-    render () {
-      const { email, password } = this.state
+      onSignIn = (event) => {
+        event.preventDefault()
 
-      return (
-        <div className='row'>
-          <div className='col-sm-10 col-md-8 mx-auto mt-5'>
-            <h3>Sign In</h3>
-            <Form onSubmit={this.onSignIn}>
-              <Form.Group controlId='email'>
-                <Form.Label>Email address</Form.Label>
-                <Form.Control
-                  required
-                  type='email'
-                  name='email'
-                  value={email}
-                  placeholder='Enter email'
-                  onChange={this.handleChange}
-                />
-              </Form.Group>
-              <Form.Group controlId='password'>
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  required
-                  name='password'
-                  value={password}
-                  type='password'
-                  placeholder='Password'
-                  onChange={this.handleChange}
-                />
-              </Form.Group>
-              <Button variant='primary' type='submit'>
-                Submit
-              </Button>
-            </Form>
+        const { msgAlert, history, setUser, setOrder } = this.props
+
+        signIn(this.state)
+          .then((res) => {
+            setUser(res.data.user)
+            return createOrder(res.data.user)
+          })
+          .then((res) => setOrder(res.data))
+          .then(() =>
+            msgAlert({
+              heading: 'Sign In Success',
+              message: signInSuccess,
+              variant: 'success'
+            })
+          )
+          .then(() => history.push('/'))
+          .catch((error) => {
+            this.setState({ email: '', password: '' })
+            msgAlert({
+              heading: 'Sign In Failed with error: ' + error.message,
+              message: signInFailure,
+              variant: 'danger'
+            })
+          })
+      }
+
+      render () {
+        const { email, password } = this.state
+
+        return (
+          <div className='row' id='forward-form'>
+            <div className='col-sm-10 col-md-8 mx-auto mt-5'>
+              <h3>Sign In</h3>
+              <Form onSubmit={this.onSignIn}>
+                <Form.Group controlId='email'>
+                  <Form.Label>Email address</Form.Label>
+                  <Form.Control
+                    required
+                    type='email'
+                    name='email'
+                    value={email}
+                    placeholder='Enter email'
+                    onChange={this.handleChange}
+                  />
+                </Form.Group>
+                <Form.Group controlId='password'>
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    required
+                    name='password'
+                    value={password}
+                    type='password'
+                    placeholder='Password'
+                    onChange={this.handleChange}
+                  />
+                </Form.Group>
+                <br />
+                <Button variant='dark' type='submit'>
+                  {' '}
+                  Submit
+                </Button>
+              </Form>
+              <br />
+              <br />
+            </div>
           </div>
-        </div>
-      )
-    }
+        )
+      }
 }
 
 export default withRouter(SignIn)

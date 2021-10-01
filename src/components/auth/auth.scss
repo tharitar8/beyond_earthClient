@@ -1,0 +1,11 @@
+@import '~bootstrap/scss/bootstrap';
+
+#forward-form {
+    display: flex;
+    z-index: 1;
+    justify-content: center;
+    margin: 50px 50px 100px 40px;
+    background: rgba(255, 255, 255, 0.171);
+    color: white;
+    border-radius: 10px;
+}

@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { Card } from 'react-bootstrap'
+import { Card, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { viewProducts } from '../../api/product'
 import { Container } from 'semantic-ui-react'
+import '../Products/HomePage.scss'
 
 class Product extends Component {
   constructor (props) {
@@ -34,22 +35,27 @@ class Product extends Component {
       <h3>No product</h3>
     }
     const productJsx = this.state.products.map((product) => (
-      <Container key={product.id}>
-        <Card className='my-3 p-3 rounded'>
-          {/* <Link to={`/products/${product.id}`}>
-            <Item.Image src={product.image} />
-          </Link> */}
-
-          <Card.Body>
-            <Link to={`/product/${product.id}`}>
-              <Card.Title as='div'>
-                <strong>{product.name}</strong>
-              </Card.Title>
-            </Link>
-
-            <Card.Text as='h6'>${product.price}</Card.Text>
-          </Card.Body>
-        </Card>
+      <Container key={product.id} id="flex-grid">
+        <Row>
+          <div className="col">
+            <div className='card'>
+              <img
+                className='card-img-top'
+                src='https://i.imgur.com/atgwTiC.jpg'
+                width='100'
+                height='100'
+              />
+              <div className='card-body'>
+                <Link to={`/product/${product.id}`}>
+                  <h5 className='card-title'>
+                    <strong>{product.name}</strong>
+                  </h5>
+                </Link>
+                <Card.Text as='h6'>${product.price}</Card.Text>
+              </div>
+            </div>
+          </div>
+        </Row>
       </Container>
     ))
     return <div> {productJsx}</div>

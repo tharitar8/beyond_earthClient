@@ -2,6 +2,8 @@ import React, { Fragment } from 'react'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import { Link, NavLink } from 'react-router-dom'
+import Carousel from 'react-bootstrap/Carousel'
+import './Header.scss'
 
 const authenticatedOptions = (
   <Fragment>
@@ -19,20 +21,24 @@ const unauthenticatedOptions = (
 
 const alwaysOptions = (
   <Fragment>
-    <NavLink exact to='/' className='nav-link'>Home</NavLink>
+    <NavLink exact to='/' className='nav-link'>Products</NavLink>
   </Fragment>
 )
 
 const Header = ({ user, order }) => {
   // console.log('order from cart link at header', order)
   return (
-    <Navbar bg='dark' variant='dark' expand='md'>
+    <Navbar className='navbar1' variant='dark' expand='md'>
       <Navbar.Brand>
         <Link
           to='/'
           style={{ color: '#FFF', textDecoration: 'none' }}
           className='text-center py-3'>
-            Logo
+          <img
+            src='https://i.imgur.com/T63cfTh.png'
+            alt='logo'
+            width='30'
+            height='30'></img>
         </Link>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls='basic-navbar-nav' />
@@ -50,8 +56,9 @@ const Header = ({ user, order }) => {
           <NavLink
             exact
             to={`/order/${order.id}`}
-            className='nav-link'>
-            Cart
+            className='nav-link'
+            id='text-bar'>
+            <i className='fas fa-cart-plus'></i> CART
           </NavLink>
         )
         : (

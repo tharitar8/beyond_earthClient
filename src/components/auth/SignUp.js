@@ -53,7 +53,7 @@ render () {
   const { email, password, passwordConfirmation } = this.state
 
   return (
-    <div className='row'>
+    <div className='row' id="forward-form">
       <div className='col-sm-10 col-md-8 mx-auto mt-5'>
         <h3>Sign Up</h3>
         <Form onSubmit={this.onSignUp}>
@@ -89,9 +89,12 @@ render () {
               placeholder='Confirm Password'
               onChange={this.handleChange}
             />
+            <br />
           </Form.Group>
-          <Button variant='primary' type='submit'>Submit</Button>
+          <Button variant='light' type='submit'>Submit</Button>
         </Form>
+        <br />
+        <br />
       </div>
     </div>
   )
