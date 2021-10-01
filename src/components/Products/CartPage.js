@@ -3,7 +3,7 @@ import { showOneOrder, viewProducts, deleteOrder, createOrder, updateItemInCart 
 import { Card, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { Container } from 'semantic-ui-react'
-import { updateCartSuccess } from '../AutoDismissAlert/messages'
+import { updateCartSuccess, deleteOrderSuccess } from '../AutoDismissAlert/messages'
 
 class CartPage extends Component {
   constructor (props) {
@@ -59,8 +59,8 @@ class CartPage extends Component {
       .then((res) => setOrder(res.data))
       .then(() =>
         msgAlert({
-          heading: 'Your cart updated!',
-          message: updateCartSuccess,
+          heading: 'Your order deleted',
+          message: deleteOrderSuccess,
           variant: 'success'
         })
       )

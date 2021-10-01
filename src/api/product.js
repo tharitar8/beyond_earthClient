@@ -55,7 +55,6 @@ export const showAllOrders = (user, order) => {
 }
 // get specific order to show
 export const showOneOrder = (user, order) => {
-  console.log('this is order from API', order)
   return axios({
     url: apiUrl + `/order/${order.id}`,
     method: 'GET',

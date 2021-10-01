@@ -8,3 +8,4 @@ export const changePasswordFailure = 'Failed to change passwords. Check your old
 export const updateOrderSuccess =
 'Order in Your cart'
 export const updateCartSuccess = 'Your Cart Updated'
+export const deleteOrderSuccess = 'Your order deleted'
