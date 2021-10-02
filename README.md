@@ -3,10 +3,10 @@
 
    E-commerce is the buying and selling of good or services via the internet, 
 and the transfer of money and data to complete the sales. 
-The website has created implements all of these options in which you can buy tickets to the moon and beyond. 
-The whole ideal was to create a fictional website that would be focused in the future when space travel is possible. 
+The website created implements all of these options in which user can buy tickets to the moon and beyond. 
+The whole concept was to create a fictional website that would be focused in the future when space travel is possible. 
 Using an E-commerce website to reflect the buying of the most exclusive tickets
-Also can get which will make it possible for anyone with enough money to be able to visit the moon and beyond. 
+One can get which would make it possible for anyone with enough money to be able to visit the moon and beyond. 
 
 ## :flying_saucer: Download & Setup Instructions
 - Clone project: git clone https://github.com/tharitar8/beyond_earthClient
