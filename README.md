@@ -105,12 +105,12 @@ one can get which would make it possible for anyone with enough money to be able
    <tr>
     <td> /order/:id</td>
     <td>PATCH</td>
-    <td>Update an order by removing each</td>
+    <td>Update an order by removing each Item</td>
   </tr>
   <tr>
     <td> /order/:id</td>
     <td>DELETE</td>
-    <td>Delete all in order and create new orderId</td>
+    <td>Delete all items in order and create new orderId</td>
   </tr>
 </table>
 
