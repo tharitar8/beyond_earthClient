@@ -33,10 +33,10 @@ One can get which would make it possible for anyone with enough money to be able
 - Bootstrap
 
 ## :flying_saucer: Future Planning
-- [ ] User be able to checkout
-- [ ] User be able to see images and reviews
-- [ ] User able to Rate each service or vote best company transportation
-- [ ] User able to see temperature each places
+- [ ] User is able to checkout
+- [ ] User is able to see images and reviews
+- [ ] User is able to Rate each service or vote best company transportation
+- [ ] User is able to see temperature each places
 
 ## :flying_saucer: Wireframes
 
