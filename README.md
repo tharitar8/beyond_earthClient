@@ -100,7 +100,7 @@ One can get which would make it possible for anyone with enough money to be able
   <tr>
     <td> /order/:id</td>
     <td>GET</td>
-    <td>Show all tickets been add to cart</td>
+    <td>Show all tickets(from add to cart)</td>
   </tr>
    <tr>
     <td> /order/:id</td>
