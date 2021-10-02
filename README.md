@@ -6,7 +6,7 @@ and the transfer of money and data to complete the sales.
 The website created implements all of these options in which user can buy tickets to the moon and beyond. 
 The whole concept was to create a fictional website that would be focused in the future when space travel is possible. 
 Using an E-commerce website to reflect the buying of the most exclusive tickets
-One can get which would make it possible for anyone with enough money to be able to visit the moon and beyond. 
+one can get which would make it possible for anyone with enough money to be able to visit the moon and beyond. 
 
 ## :flying_saucer: Download & Setup Instructions
 - Clone project: git clone https://github.com/tharitar8/beyond_earthClient
